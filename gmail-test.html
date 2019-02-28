@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gmail API</title>
+    <meta charset="utf-8" />
+
+    <style>
+        message {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Gmail API</p>
+
+    <button id="authorize_button" class="not-authed" style="display: none;">Authorize</button>
+    <button id="signout_button" class="authed" style="display: none;">Sign Out</button>
+    <button id="list_labels_button" class="authed" style="display: none;">List Labels</button>
+    <button id="list_messages_button" class="authed" style="display: none;">List Messages</button>
+
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        const DEBUG = true;
+        let HASH_CHANGE = false;
+
+        class Services {
+            static initApp(callback) {
+                callback();
+
+                window.onhashchange = () => {
+                    if (!HASH_CHANGE) {
+                        callback();
+                    }
+
+                    HASH_CHANGE = false;
+                };
+            }
+
+            static log(val, critical) {
+                if (DEBUG || critical) {
+                    if (typeof val === "object") {
+                        console.log(JSON.stringify(val, null, 4)); /* eslint-disable-line */
+                    } else {
+                        console.log(val); /* eslint-disable-line */
+                    }
+                }
+            }
+
+            static getArgs() {
+                return Services.parseJson(atob(window.location.hash.replace(/#/i, "")));
+            }
+
+            static setArgs(value) {
+                HASH_CHANGE = true;
+
+                if (value && typeof value === "object") {
+                    window.location.hash = `#${btoa(JSON.stringify(value))}`;
+                } else {
+                    window.location.hash = "";
+                }
+
+                Services.log(window.location);
+            }
+
+            static parseJson(value) {
+                if (/^[\],:{}\s]*$/.test(value.replace(/\\["\\/bfnrtu]/g, "@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?/g, "]").replace(/(?:^|:|,)(?:\s*\[)+/g, ""))) {
+                    try {
+                        return JSON.parse(value);
+                    } catch (err) {
+                        return {};
+                    }
+                }
+
+                return {};
+            }
+
+            static layoutDashboard(app) {
+                let container = app.parent();
+                let saftey = 0;
+
+                while (container.attr("id") !== "Dashboard" && saftey < 20) {
+                    container.css({
+                        height: "100%"
+                    });
+
+                    container = container.parent();
+                    saftey += 1;
+                }
+            }
+
+            static today() {
+                const date = new Date();
+
+                date.setHours(0);
+                date.setMinutes(0);
+                date.setSeconds(0);
+                date.setMilliseconds(0);
+
+                return date;
+            }
+
+            static formatDate(value) {
+                return `${value.getMonth() + 1}/${value.getDate()}/${value.getFullYear()}`;
+            }
+
+            static formatTime(value) {
+                return `${value.getHours() % 12 ? value.getHours() % 12 : 12}:${value.getMinutes() < 10 ? `0${value.getMinutes()}` : value.getMinutes()} ${value.getHours() >= 12 ? "PM" : "AM"}`;
+            }
+
+            static addDays(date, days) {
+                const value = new Date(date);
+
+                value.setDate(value.getDate() + days);
+
+                return value;
+            }
+
+            static firstOfTheMonth(date) {
+                return new Date(date.getFullYear(), date.getMonth(), 1);
+            }
+
+            static getSunday(date) {
+                const day = new Date(date);
+
+                return new Date(day.setDate(day.getDate() - day.getDay() + (day.getDay() === 0 ? -6 : 1) - 1));
+            }
+
+            static getFullWeekDayName(day) {
+                switch (day % 7) {
+                    case 1:
+                        return "Monday";
+
+                    case 2:
+                        return "Tuesday";
+
+                    case 3:
+                        return "Wednesday";
+
+                    case 4:
+                        return "Thursday";
+
+                    case 5:
+                        return "Friday";
+
+                    case 6:
+                        return "Saturday";
+
+                    default:
+                        return "Sunday";
+                }
+            }
+
+            static getWeekDayName(day) {
+                return this.getFullWeekDayName(day).substring(0, 3);
+            }
+
+            static getFullMonthName(month) {
+                switch (month % 12) {
+                    case 1:
+                        return "February";
+
+                    case 2:
+                        return "March";
+
+                    case 3:
+                        return "April";
+
+                    case 4:
+                        return "May";
+
+                    case 5:
+                        return "June";
+
+                    case 6:
+                        return "July";
+
+                    case 7:
+                        return "August";
+
+                    case 8:
+                        return "September";
+
+                    case 9:
+                        return "October";
+
+                    case 10:
+                        return "November";
+
+                    case 11:
+                        return "December";
+
+                    default:
+                        return "January";
+                }
+            }
+
+            static getMonthName(month) {
+                return this.getFullMonthName(month).substring(0, 3);
+            }
+
+            static getMinCacheTime() {
+                const date = new Date();
+                const minutes = date.getMinutes();
+                const hours = date.getHours();
+
+                return `${Services.formatDate(date)} ${hours % 12 ? hours % 12 : 12}:${minutes < 10 ? `0${minutes}` : minutes} ${hours >= 12 ? "PM" : "AM"}`;
+            }
+
+            static base64 = {
+                encode(value) {
+                    if (!value || value === "") {
+                        return "";
+                    }
+
+                    return btoa(value);
+                },
+
+                encodeUrl(value) {
+                    if (!value || value === "") {
+                        return "";
+                    }
+
+                    return btoa(value).replace(/\//g, "_").replace(/\+/g, "-");
+                },
+
+                decode(value) {
+                    if (!value || value === "") {
+                        return "";
+                    }
+
+                    return atob(value);
+                },
+
+                decodeUrl(value) {
+                    if (!value || value === "") {
+                        return "";
+                    }
+
+                    return atob(value.replace(/_/g, "/").replace(/-/g, "+"));
+                }
+            }
+        }
+
+        class Gmail {
+            constructor(signedIn) {
+                gapi.load("client:auth2", () => {
+                    gapi.client.init({
+                        apiKey: atob(JSON.parse(atob("eyJhIjoiUVVsNllWTjVSR0l5YTBNNWJVTkVWMUZaWlhOSFpFbGZhVEZ2UzFVd2RsUnlPVmx6YUdSaiIsImMiOiJNVEE1TXpBM05qRTROelV6TmkxMmFtRmtOV2xtYjI0emFXY3lOV1V3WW1neGFIRjJieloyTUdseGFXUmhheTVoY0hCekxtZHZiMmRzWlhWelpYSmpiMjUwWlc1MExtTnZiUT09In0=")).a),
+                        clientId: atob(JSON.parse(atob("eyJhIjoiUVVsNllWTjVSR0l5YTBNNWJVTkVWMUZaWlhOSFpFbGZhVEZ2UzFVd2RsUnlPVmx6YUdSaiIsImMiOiJNVEE1TXpBM05qRTROelV6TmkxMmFtRmtOV2xtYjI0emFXY3lOV1V3WW1neGFIRjJieloyTUdseGFXUmhheTVoY0hCekxtZHZiMmRzWlhWelpYSmpiMjUwWlc1MExtTnZiUT09In0=")).c),
+                        discoveryDocs: [
+                            "https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"
+                        ],
+                        scope: "https://www.googleapis.com/auth/gmail.readonly"
+                    }).then(function () {
+                        gapi.auth2.getAuthInstance().isSignedIn.listen(signedIn);
+
+                        signedIn(gapi.auth2.getAuthInstance().isSignedIn.get());
+                    }, function (error) {
+                        console.log(JSON.stringify(error, null, 2));
+                    });
+                });
+            }
+
+            signIn() {
+                gapi.auth2.getAuthInstance().signIn();
+            }
+
+            signOut() {
+                gapi.auth2.getAuthInstance().signOut();
+            }
+
+            listLabels() {
+                return new Promise((resolve, reject) => {
+                    gapi.client.gmail.users.labels.list({
+                        userId: "me"
+                    }).then(res => resolve(res.result.labels)).catch(err => reject(err));
+                });
+            }
+
+            listLabels() {
+                return new Promise((resolve, reject) => {
+                    gapi.client.gmail.users.labels.list({
+                        userId: "me"
+                    }).then(res => resolve(res.result.labels)).catch(err => reject(err));
+                });
+            }
+
+            listMessages(query) {
+                return new Promise((resolve, reject) => {
+                    gapi.client.gmail.users.messages.list({
+                        userId: "me",
+                        q: query
+                    }).then(res => resolve(res.result.messages)).catch(err => reject(err));
+                });
+            }
+
+            getMessage(id) {
+                return new Promise((resolve, reject) => {
+                    gapi.client.gmail.users.messages.get({
+                        userId: "me",
+                        id
+                    }).then(res => resolve(res.result)).catch(err => reject(err));
+                });
+            }
+        }
+
+        const init = function init() {
+            const content = $("#content");
+
+            content.text("");
+
+            const gmail = new Gmail((auth) => {
+                if (auth) {
+                    $(".not-authed").hide();
+                    $(".authed").show();
+                } else {
+                    $(".not-authed").show();
+                    $(".authed").hide();
+
+                    content.text("");
+                }
+            });
+
+            content.on("click", "message", (e) => {
+                content.text("");
+
+                gmail.getMessage($(e.currentTarget).text()).then((res) => {
+                    for (let i = 0; i < res.payload.parts.length; i += 1) {
+                        res.payload.parts[i].body.data = Services.base64.decodeUrl(res.payload.parts[i].body.data);
+                    }
+
+                    content.html(JSON.stringify(res, null, 4));
+                });
+            });
+
+            $("#authorize_button").on("click", () => {
+                gmail.signIn();
+            });
+
+            $("#signout_button").on("click", () => {
+                gmail.signOut();
+            });
+
+            $("#list_labels_button").on("click", () => {
+                content.text("");
+
+                gmail.listLabels().then((res) => {
+                    content.text(JSON.stringify(res, null, 4));
+                });
+            })
+
+            $("#list_messages_button").on("click", () => {
+                content.text("");
+
+                gmail.listMessages().then((res) => {
+                    for (let i = 0; i < res.length; i += 1) {
+                        res[i].id = `<message>${res[i].id}</message>`
+                    }
+
+                    content.html(JSON.stringify(res, null, 4));
+                })
+            });
+        }
+    </script>
+
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload = function(){}; init()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+</body>
+
+</html>
