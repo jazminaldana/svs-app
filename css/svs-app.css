@@ -1,0 +1,131 @@
+#svs-app-main {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+#svs-app-main .svs-loading {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#svs-app-main .svs-loading-row {
+    height: 350px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#svs-app-main .svs-loading-cell {
+    width: 48px;
+    height: 50px;
+    background: url("https://fofxsoft.com/svs-app/img/svs-loading.gif");
+}
+
+#svs-app-main .svs-button {
+    margin-right: 7px;
+    border-radius: 3px;
+    border: 1px #406480 solid;
+    background: #406480;
+    color: #fff;
+    padding: 5px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#svs-app-main .svs-button:hover {
+    background: #345066;
+}
+
+#svs-app-main .svs-header {
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    padding: 9px 0 9px 7px;
+    user-select: none;
+}
+
+#svs-app-main .svs-header .svs-title {
+    align-self: flex-start;
+    display: flex;
+    font-size: 18px;
+    color: #5d5d5d;
+    padding: 0 7px;
+}
+
+#svs-app-main .svs-tabs {
+    height: 30px;
+    padding: 0 7px 0 7px;
+    background: #ededed;
+    background: linear-gradient(to bottom,  #ededed 1%, #ededed 90%, #777 100%);
+    display: flex;
+    font-size: 13px;
+    user-select: none;
+}
+
+#svs-app-main .svs-tabs .svs-tab {
+    color: #777;
+    height: 30px;
+    line-height: 28px;
+    padding: 0 17px 0 17px;
+    cursor: pointer;
+}
+
+#svs-app-main .svs-tabs .svs-tab:hover {
+    color: #000;
+}
+
+#svs-app-main .svs-tabs .svs-active {
+    color: #000;
+    background: #fff;
+    line-height: 26px;
+    margin-bottom: -2px;
+    border-right: 1px #bbb solid;
+    border-left: 1px #bbb solid;
+    border-top: 3px #406480 solid;
+    cursor: default;
+}
+
+#svs-app-main .svs-content {
+    flex: 1;
+    background: #fff;
+    display: none;
+    overflow: hidden;
+}
+
+#svs-app-main .svs-content .svs-panel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+}
+
+#svs-app-main .svs-content .svs-column {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+#svs-app-main .svs-content .svs-resizable-west {
+    border-right: 3px #f3f3f3 solid;
+    box-sizing: border-box;
+}
+
+#svs-app-main .svs-content .svs-resizable-east {
+    border-left: 3px #f3f3f3 solid;
+    box-sizing: border-box;
+}
