@@ -8,7 +8,7 @@ HTML boilderplate
 <!--
     Include the services common styles.
 -->
-<link rel="stylesheet" type="text/css" href="https://fofxsoft.com/svs-app/css/svs-app.css">
+<link rel="stylesheet" type="text/css" href="https://encompasstechnologies.github.io/svs-app/css/svs-app.css">
 
 <div id="svs-app-main">
 
@@ -22,7 +22,7 @@ HTML boilderplate
 <!--
     Include the services common scripts
 -->
-<script async type="text/javascript" src="https://fofxsoft.com/svs-app/js/svs-app.js"></script>
+<script async type="text/javascript" src="https://encompasstechnologies.github.io/svs-app/js/svs-app.js"></script>
 ```
 
 JavaScript bolierplate
@@ -92,7 +92,7 @@ Gmail API
 <!--
     Include the services common styles.
 -->
-<link rel="stylesheet" type="text/css" href="https://fofxsoft.com/svs-app/css/svs-app.css">
+<link rel="stylesheet" type="text/css" href="https://encompasstechnologies.github.io/svs-app/css/svs-app.css">
 
 <div id="svs-app-main">
 
@@ -111,10 +111,10 @@ Gmail API
 <!--
     Include the services common scripts
 -->
-<script async type="text/javascript" src="https://fofxsoft.com/svs-app/js/svs-app.js"></script>
+<script async type="text/javascript" src="https://encompasstechnologies.github.io/svs-app/js/svs-app.js"></script>
 
 <!--
     Include these files to enable Gmail access
 -->
-<script async type="text/javascript" src="https://fofxsoft.com/svs-app/js/gmail.js"></script>
+<script async type="text/javascript" src="https://encompasstechnologies.github.io/svs-app/js/gmail.js"></script>
 ```
