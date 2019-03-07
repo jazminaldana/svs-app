@@ -408,12 +408,12 @@
     }
 }
 
-.card-columns .card {
+.svs-card-columns .svs-card {
     margin-bottom: 0.75rem;
 }
 
 @media (min-width: 576px) {
-    .card-columns {
+    .svs-card-columns {
         -webkit-column-count: 3;
         -moz-column-count: 3;
         column-count: 3;
@@ -424,7 +424,7 @@
         widows: 1;
     }
 
-    .card-columns .card {
+    .svs-card-columns .svs-card {
         display: inline-block;
         width: 100%;
     }
@@ -432,12 +432,12 @@
 
 /** INSTRUCTIONS/WORKFLOW TEMPLATE
     Credits to https://bootsnipp.com/bbilginn **/
-.timeline-centered {
+.svs-timeline-centered {
 	position: relative;
 	margin-bottom: 30px;
 }
 
-.timeline-centered:before {
+.svs-timeline-centered:before {
 	content: "";
 	position: absolute;
 	display: block;
@@ -448,7 +448,7 @@
 	margin-left: 30px;
 }
 
-.timeline-centered .timeline-entry {
+.svs-timeline-centered .svs-timeline-entry {
 	position: relative;
 	margin-top: 5px;
 	margin-left: 30px;
@@ -456,24 +456,24 @@
 	clear: both;
 }
 
-.timeline-centered .timeline-entry.begin { margin-bottom: 0; }
+.svs-timeline-centered .svs-timeline-entry.begin { margin-bottom: 0; }
 
-.timeline-centered .timeline-entry .timeline-entry-inner {
+.svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner {
 	position: relative;
 	margin-left: -20px;
 }
 
-.timeline-centered .timeline-entry .timeline-entry-inner:before,
-.timeline-centered .timeline-entry .timeline-entry-inner:after {
+.svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner:before,
+.svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner:after {
 	content: " ";
 	display: table;
 }
 
-.timeline-centered:after,
-.timeline-centered .timeline-entry .timeline-entry-inner:after,
-.timeline-centered .timeline-entry:after { clear: both; }
+.svs-timeline-centered:after,
+.svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner:after,
+.svs-timeline-centered .svs-timeline-entry:after { clear: both; }
 
-.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon {
+.svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner .svs-timeline-icon {
 	display: block;
 	width: 40px;
 	height: 40px;
@@ -492,7 +492,7 @@
 	float: left;
 }
 
-.timeline-centered .timeline-entry .timeline-entry-inner .timeline-label {
+.svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner .svs-timeline-label {
 	position: relative;
 	background: #dddddd;
 	padding: 1em;
@@ -505,7 +505,7 @@
 	border-radius: 3px;
 }
 
-.timeline-centered .timeline-entry .timeline-entry-inner .timeline-label:after {
+.svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner .svs-timeline-label:after {
 	content: "";
 	display: block;
 	position: absolute;
@@ -519,7 +519,7 @@
 	margin-left: -9px;
 }
 
-.timeline-centered .timeline-entry .timeline-entry-inner .timeline-label p {
+.svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner .svs-timeline-label p {
 	margin: 0.5rem;
 	line-height: 1.428571429;
 }
