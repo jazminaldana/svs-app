@@ -8,7 +8,7 @@
     overflow: auto;
 }
 
-#svs-app-main .svs-loading {
+.svs-loading {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -19,20 +19,20 @@
     justify-content: space-around;
 }
 
-#svs-app-main .svs-loading-row {
+.svs-loading-row {
     height: 350px;
     width: 100%;
     display: flex;
     justify-content: space-around;
 }
 
-#svs-app-main .svs-loading-cell {
+.svs-loading-cell {
     width: 48px;
     height: 50px;
     background: url("https://encompasstechnologies.github.io/svs-app/img/svs-loading.gif");
 }
 
-#svs-app-main .svs-button {
+.svs-button {
     margin-right: 7px;
     border-radius: 3px;
     border: 1px #406480 solid;
@@ -44,11 +44,11 @@
     cursor: pointer;
 }
 
-#svs-app-main .svs-button:hover {
+.svs-button:hover {
     background: #345066;
 }
 
-#svs-app-main .svs-header {
+.svs-header {
     height: 48px;
     display: flex;
     flex-direction: column;
@@ -56,7 +56,7 @@
     user-select: none;
 }
 
-#svs-app-main .svs-header .svs-title {
+.svs-header .svs-title {
     align-self: flex-start;
     display: flex;
     font-size: 18px;
@@ -64,7 +64,7 @@
     padding: 0 7px;
 }
 
-#svs-app-main .svs-tabs {
+.svs-tabs {
     height: 30px;
     padding: 0 7px 0 7px;
     background: #ededed;
@@ -74,7 +74,7 @@
     user-select: none;
 }
 
-#svs-app-main .svs-tabs .svs-tab {
+.svs-tabs .svs-tab {
     color: #777;
     height: 30px;
     line-height: 28px;
@@ -82,11 +82,11 @@
     cursor: pointer;
 }
 
-#svs-app-main .svs-tabs .svs-tab:hover {
+.svs-tabs .svs-tab:hover {
     color: #000;
 }
 
-#svs-app-main .svs-tabs .svs-active {
+.svs-tabs .svs-active {
     color: #000;
     background: #fff;
     line-height: 26px;
@@ -97,14 +97,14 @@
     cursor: default;
 }
 
-#svs-app-main .svs-content {
+.svs-content {
     flex: 1;
     background: #fff;
     display: none;
     overflow: hidden;
 }
 
-#svs-app-main .svs-content .svs-panel {
+.svs-content .svs-panel {
     width: 100%;
     height: 100%;
     display: flex;
@@ -112,7 +112,7 @@
     box-sizing: border-box;
 }
 
-#svs-app-main .svs-content .svs-column {
+.svs-content .svs-column {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -120,26 +120,32 @@
     overflow: auto;
 }
 
-#svs-app-main .svs-content .svs-resizable-west {
+.svs-content .svs-resizable-west {
     border-right: 3px #f3f3f3 solid;
     box-sizing: border-box;
 }
 
-#svs-app-main .svs-content .svs-resizable-east {
+.svs-content .svs-resizable-east {
     border-left: 3px #f3f3f3 solid;
     box-sizing: border-box;
 }
 
 /* Font Style */
-#svn-app-main {
-    font-family: "Lato";
-    font-weight: 300 !important;
-}
-
+#svs-app-main > *,
 .svs-display-1,
 .svs-display-2,
 .svs-display-3,
-.svs-display-4 {
+.svs-display-4,
+#svs-app-main h1,
+#svs-app-main h2,
+#svs-app-main h3,
+#svs-app-main h4,
+#svs-app-main h5,
+#svs-app-main h6,
+#svs-app-main p,
+#svs-app-main span {
+    font-family: "Lato" !important;
+    font-weight: 300 !important;
     line-height: 1.2 !important;
 }
 
@@ -433,93 +439,97 @@
 /** INSTRUCTIONS/WORKFLOW TEMPLATE
     Credits to https://bootsnipp.com/bbilginn **/
 .svs-timeline-centered {
-	position: relative;
-	margin-bottom: 30px;
+    position: relative;
+    margin-bottom: 30px;
 }
 
 .svs-timeline-centered:before {
-	content: "";
-	position: absolute;
-	display: block;
-	width: 4px;
-	background: #f5f5f6;
-	top: 20px;
-	bottom: 20px;
-	margin-left: 30px;
+    content: "";
+    position: absolute;
+    display: block;
+    width: 4px;
+    background: #f5f5f6;
+    top: 20px;
+    bottom: 20px;
+    margin-left: 30px;
 }
 
 .svs-timeline-centered .svs-timeline-entry {
-	position: relative;
-	margin-top: 5px;
-	margin-left: 30px;
-	margin-bottom: 10px;
-	clear: both;
+    position: relative;
+    margin-top: 5px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    clear: both;
 }
 
-.svs-timeline-centered .svs-timeline-entry.begin { margin-bottom: 0; }
+.svs-timeline-centered .svs-timeline-entry.begin {
+    margin-bottom: 0;
+}
 
 .svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner {
-	position: relative;
-	margin-left: -20px;
+    position: relative;
+    margin-left: -20px;
 }
 
 .svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner:before,
 .svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner:after {
-	content: " ";
-	display: table;
+    content: " ";
+    display: table;
 }
 
 .svs-timeline-centered:after,
 .svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner:after,
-.svs-timeline-centered .svs-timeline-entry:after { clear: both; }
+.svs-timeline-centered .svs-timeline-entry:after {
+    clear: both;
+}
 
 .svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner .svs-timeline-icon {
-	display: block;
-	width: 40px;
-	height: 40px;
-	-webkit-background-clip: padding-box;
-	-moz-background-clip: padding;
-	background-clip: padding-box;
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	border-radius: 20px;
-	text-align: center;
-	-moz-box-shadow: 0 0 0 5px #f5f5f6;
-	-webkit-box-shadow: 0 0 0 5px #f5f5f6;
-	box-shadow: 0 0 0 5px #f5f5f6;
-	line-height: 40px;
-	font-size: 15px;
-	float: left;
+    display: block;
+    width: 40px;
+    height: 40px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-align: center;
+    -moz-box-shadow: 0 0 0 5px #f5f5f6;
+    -webkit-box-shadow: 0 0 0 5px #f5f5f6;
+    box-shadow: 0 0 0 5px #f5f5f6;
+    line-height: 40px;
+    font-size: 15px;
+    float: left;
 }
 
 .svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner .svs-timeline-label {
-	position: relative;
-	background: #dddddd;
-	padding: 1em;
-	margin-left: 60px;
-	-webkit-background-clip: padding-box;
-	-moz-background-clip: padding;
-	background-clip: padding-box;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+    position: relative;
+    background: #dddddd;
+    padding: 1em;
+    margin-left: 60px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner .svs-timeline-label:after {
-	content: "";
-	display: block;
-	position: absolute;
-	width: 0;
-	height: 0;
-	border-style: solid;
-	border-width: 9px 9px 9px 0;
-	border-color: transparent #dddddd transparent transparent;
-	left: 0;
-	top: 10px;
-	margin-left: -9px;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 9px 9px 9px 0;
+    border-color: transparent #dddddd transparent transparent;
+    left: 0;
+    top: 10px;
+    margin-left: -9px;
 }
 
 .svs-timeline-centered .svs-timeline-entry .svs-timeline-entry-inner .svs-timeline-label p {
-	margin: 0.5rem;
-	line-height: 1.428571429;
+    margin: 0.5rem;
+    line-height: 1.428571429;
 }
